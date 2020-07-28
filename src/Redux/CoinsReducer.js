@@ -1,4 +1,6 @@
-import {  Update_Selected_Coin,Set_Loading,Set_ErrorMessage,Update_CoinsAndCurrency } from './Constants'
+import {  Update_Selected_Coin,
+    Set_Loading,Set_ErrorMessage,
+    Update_CoinsAndCurrency } from './Constants'
 
 const initialState = {
     currency: "USD",
@@ -13,12 +15,12 @@ const coinsReducer = (state = initialState, action) => {
         case Set_Loading:
             return { ...state, isLoadingData: action.payload }
          case Set_ErrorMessage:
-            return { ...state, error: action.payload, isLoading: false }
+            return { ...state, error: action.payload, isLoadingData: false }
         case Update_CoinsAndCurrency:{
             return {...state,
                 currency:action.payload.currency, 
                 coins:action.payload.coins,
-                isLoading: false, 
+                isLoadingData: false, 
                 error:"" 
             }
         }

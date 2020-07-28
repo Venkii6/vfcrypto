@@ -4,7 +4,7 @@ import { CoinCell, PriceCell, MarketCapCell, PercentCell } from './Cells/tableCe
 import styled from 'styled-components'
 import { updateSelectedCoin,fetchCoins } from '../../../Redux/Actions'
 import { connect } from 'react-redux';
-
+import Spinner from './Spinner'
 
 const tableCols = [
 	{
@@ -53,6 +53,11 @@ const WrapperTable = styled(AppList)`
     width: 100%;
 `
 
+const SpinnerDiv = styled.div`
+	display:flex;
+	justify-content: center;
+`
+
 class Home extends React.Component {
 	componentDidMount() {
 		this.props.fetchCoins(this.props.currency);
@@ -70,8 +75,8 @@ class Home extends React.Component {
 	}
 
 	render() {
-		var {currency} = this.props;
-		return (<WrapperTable columns={tableCols}
+		var {currency,isLoadingData} = this.props;
+		return (isLoadingData ? <SpinnerDiv><Spinner/></SpinnerDiv> : <WrapperTable columns={tableCols}
 			data={Object.values(this.props.coins).sort((a, b) => a.RAW[currency].PRICE > b.RAW[currency].PRICE ? -1 : 1)}
 			onRowClick={this.handleRowClick}
 			currency={currency}
@@ -82,7 +87,9 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		currency: state.currency,
-		coins: state.coins
+		coins: state.coins,
+		isLoadingData:state.isLoadingData
+
 	}
 }
 
