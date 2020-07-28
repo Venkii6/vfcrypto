@@ -9,23 +9,23 @@ const Tr = styled.tr`
 		background-color: #ebf1f5;
 	}
 `
-const AppList = ({ columns, data, className, onRowClick,currency }) => (
-    <table className={className}>
-        <ListHeader columns={columns} />
-                <tbody>
-        			{data.map(row => (
-        				<Tr onClick={() => onRowClick(row)}>
-        					{
-        						columns.map(column => (
-									<ListItem component={column.component} 
-									align={column.align} 
-									data={row} currency={currency}/>
-        						))
-        					}
-        				</Tr>
-        			))}
-        		</tbody>
-    </table>
+const AppList = ({ columns, data, className, onRowClick, currency }) => (
+	<table className={className}>
+		<ListHeader columns={columns} />
+		<tbody>
+			{data.map(row => (
+				<Tr onClick={() => onRowClick(row)}>
+					{
+						columns.map(column => (
+							<ListItem component={column.component}
+								align={column.align}
+								data={row} currency={currency} />
+						))
+					}
+				</Tr>
+			))}
+		</tbody>
+	</table>
 )
 
 

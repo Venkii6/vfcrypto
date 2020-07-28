@@ -44,24 +44,21 @@ const Price = styled.div`
 
 `
 
-const CurrencyHeader = ({ selectedCoin }) => {
-    //const coin = coins[selectedID];
+const CurrencyHeader = ({ selectedCoin,currency }) => {
     const coin = selectedCoin;
-    console.log("CurrencyHeader coin",coin)
-
     if (!coin) return null
     return (
         <HeaderNav>
             <BackButton to="/">
-                  ←
+                ←
             </BackButton>
-            <Icon data={coin.CoinInfo.ImageUrl}/>
+            <Icon data={coin.CoinInfo.ImageUrl} />
             <Title>
                 <Name>
                     {coin.CoinInfo.FullName}
                 </Name>
                 <Symbol>
-                    {coin.RAW['USD'].PRICE.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                    {coin.RAW[currency].PRICE.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                 </Symbol>
             </Title>
             <Price>
@@ -72,9 +69,10 @@ const CurrencyHeader = ({ selectedCoin }) => {
 
 const mapStateToProps = (state) => {
     return {
-        selectedCoin: state.selectedCoin
+        selectedCoin: state.selectedCoin,
+        currency:state.currency
     }
 }
 
-export default connect(mapStateToProps)(CurrencyHeader); 
+export default connect(mapStateToProps)(CurrencyHeader);
 

@@ -9,7 +9,6 @@ const ListHeader = styled.thead`
     border-bottom: 2px solid #e7e7e7;
     
 `
-
 const Th = styled.th`
     text-transform: uppercase;
     text-align: left;
@@ -20,7 +19,7 @@ const Th = styled.th`
 const ListNav = ({ columns = [] }) => (
     <ListHeader>
         <tr>
-        {columns.map(column => <Th key={column.title}>{column.title}</Th>)}
+            {columns.map(column => <Th key={column.title}>{column.title}</Th>)}
         </tr>
     </ListHeader>
 );

@@ -9,12 +9,12 @@ const TableData = styled.td`
 
 `
 
-const ListItem = ({ component, data,currency }) => {
+const ListItem = ({ component, data, currency }) => {
 
     if (component === undefined) return <TableData />
-    return(
+    return (
         <TableData>
-            {React.createElement(component, { currency,data })}
+            {React.createElement(component, { currency, data })}
         </TableData>
     )
 }

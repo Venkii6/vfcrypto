@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { updateSelectedCurrency } from '../../../Redux/Actions'
+import { fetchCoins } from '../../../Redux/Actions'
 
 
 const DropdownMenuDiv = styled.div`
@@ -43,14 +43,12 @@ const DropdownMenuDiv = styled.div`
     }
   }
 
-   
-
 `;
 
 const DropdownMenu = (props) => {
     const handleMenuClick = (e) => {
-        console.log("value:", e.currentTarget.dataset.id);
-        props.updateSelectedCurrency(e.currentTarget.dataset.id);
+        console.log("selected currency:", e.currentTarget.dataset.id);
+        props.fetchCoins(e.currentTarget.dataset.id);
     }
 
     return (
@@ -79,7 +77,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateSelectedCurrency: (currency) => dispatch(updateSelectedCurrency(currency))
+        fetchCoins: (currency) => dispatch(fetchCoins(currency))
     }
 }
 
