@@ -2,7 +2,6 @@ import React from 'react'
 import ListHeader from './ListHeader'
 import ListItem from './ListItem'
 import styled from 'styled-components'
-import Footer from './ListFooter'
 
 const Tr = styled.tr`
 	&:hover {
@@ -28,7 +27,5 @@ const AppList = ({ columns, data, className, onRowClick, currency,date }) => (
 		</tbody>
 	</table>
 )
-
-
 
 export default AppList;

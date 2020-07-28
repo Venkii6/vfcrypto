@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { updateSelectedCoin, fetchCoins } from '../../../Redux/Actions'
 import { connect } from 'react-redux';
 import Spinner from './Spinner'
+import Moment from 'moment';
 
 const tableCols = [
 	{
@@ -58,6 +59,13 @@ const SpinnerDiv = styled.div`
 	justify-content: center;
 `
 
+const LastUpdated = styled.div`
+	font-size: 12px;
+	color: #ccc;
+	text-align: center;
+	margin-top: 20px;
+`;
+
 class Home extends React.Component {
 	componentDidMount() {
 		this.props.fetchCoins(this.props.currency);
@@ -75,13 +83,18 @@ class Home extends React.Component {
 	}
 
 	render() {
-		var { currency, isLoadingData,lastUpdateDate } = this.props;
-		return (isLoadingData ? <SpinnerDiv><Spinner /></SpinnerDiv> :
-			<WrapperTable columns={tableCols}
-				data={Object.values(this.props.coins).sort((a, b) => a.RAW[currency].PRICE > b.RAW[currency].PRICE ? -1 : 1)}
-				onRowClick={this.handleRowClick}
-				currency={currency} date={lastUpdateDate}
-			/>)
+		var { currency, isLoadingData, lastUpdateDate } = this.props;
+		return (
+			<React.Fragment>
+				{isLoadingData ? <SpinnerDiv><Spinner /></SpinnerDiv> :
+				<WrapperTable columns={tableCols}
+					data={Object.values(this.props.coins).sort((a, b) => a.RAW[currency].PRICE > b.RAW[currency].PRICE ? -1 : 1)}
+					onRowClick={this.handleRowClick}
+					currency={currency} date={lastUpdateDate}
+				/>}				
+				{ lastUpdateDate && <LastUpdated>last updated {Moment(lastUpdateDate).format('DD/MM/YYYY, hh:mm:ss a')}</LastUpdated>}
+			</React.Fragment>
+		)
 	}
 }
 
