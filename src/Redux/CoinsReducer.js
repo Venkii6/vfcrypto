@@ -7,7 +7,8 @@ const initialState = {
     coins:[],
     selectedCoin:null,
     isLoadingData: false,
-    error: ''
+    error: '',
+    lastUpdateDate:null
 }
 
 const coinsReducer = (state = initialState, action) => {
@@ -21,7 +22,8 @@ const coinsReducer = (state = initialState, action) => {
                 currency:action.payload.currency, 
                 coins:action.payload.coins,
                 isLoadingData: false, 
-                error:"" 
+                error:"",
+                lastUpdateDate:Date()
             }
         }
         case Update_Selected_Coin: {

@@ -31,7 +31,7 @@ export const updateSelectedCoin = (id) => {
     }
 }
 
-export const fetchCoins = (currency) => {
+export const fetchCoins =  (currency) => {
     return (dispatch) => {
         dispatch(setLoading(true))
         const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=" + currency;

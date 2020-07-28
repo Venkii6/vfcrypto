@@ -2,7 +2,7 @@ import React from 'react'
 import AppList from '../../AppList'
 import { CoinCell, PriceCell, MarketCapCell, PercentCell } from './Cells/tableCells'
 import styled from 'styled-components'
-import { updateSelectedCoin,fetchCoins } from '../../../Redux/Actions'
+import { updateSelectedCoin, fetchCoins } from '../../../Redux/Actions'
 import { connect } from 'react-redux';
 import Spinner from './Spinner'
 
@@ -75,12 +75,13 @@ class Home extends React.Component {
 	}
 
 	render() {
-		var {currency,isLoadingData} = this.props;
-		return (isLoadingData ? <SpinnerDiv><Spinner/></SpinnerDiv> : <WrapperTable columns={tableCols}
-			data={Object.values(this.props.coins).sort((a, b) => a.RAW[currency].PRICE > b.RAW[currency].PRICE ? -1 : 1)}
-			onRowClick={this.handleRowClick}
-			currency={currency}
-		/>)
+		var { currency, isLoadingData,lastUpdateDate } = this.props;
+		return (isLoadingData ? <SpinnerDiv><Spinner /></SpinnerDiv> :
+			<WrapperTable columns={tableCols}
+				data={Object.values(this.props.coins).sort((a, b) => a.RAW[currency].PRICE > b.RAW[currency].PRICE ? -1 : 1)}
+				onRowClick={this.handleRowClick}
+				currency={currency} date={lastUpdateDate}
+			/>)
 	}
 }
 
@@ -88,7 +89,8 @@ const mapStateToProps = (state) => {
 	return {
 		currency: state.currency,
 		coins: state.coins,
-		isLoadingData:state.isLoadingData
+		isLoadingData: state.isLoadingData,
+		lastUpdateDate: state.lastUpdateDate
 
 	}
 }
@@ -96,7 +98,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		updateSelectedCoin: (id) => dispatch(updateSelectedCoin(id)),
-		fetchCoins:(currency)=>dispatch(fetchCoins(currency))
+		fetchCoins: (currency) => dispatch(fetchCoins(currency))
 	}
 }
 
