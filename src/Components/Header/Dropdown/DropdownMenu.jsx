@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { updateSelectedCurrency } from '../../../Redux/Actions'
+
 
 const DropdownMenuDiv = styled.div`
   .dropdown {
@@ -24,7 +27,7 @@ const DropdownMenuDiv = styled.div`
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
   }
-  .dropdown__item {
+   .dropdown__item {
     cursor: pointer;
     align-items: flex-start;
     line-height: 4px;
@@ -37,41 +40,47 @@ const DropdownMenuDiv = styled.div`
         overflow: hidden;
         color: #4a4d55;
       }
-
     }
   }
+
+   
+
 `;
 
-class DropdownMenu extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
+const DropdownMenu = (props) => {
+    const handleMenuClick = (e) => {
+        console.log("value:", e.currentTarget.dataset.id);
+        props.updateSelectedCurrency(e.currentTarget.dataset.id);
     }
 
-    handleMenuClick = (e) => {
-        console.log("value:",e.currentTarget.dataset.id);
-    }
+    return (
+        <DropdownMenuDiv>
+            <ul className="dropdown">
+                {props.data.map(item => {
+                    const { title, className } = item;
+                    return (
+                        <li key={title} onClick={handleMenuClick} data-id={title}>
+                            <span>
+                                {title}
+                            </span>
+                        </li>
+                    );
+                })}
+            </ul>
+        </DropdownMenuDiv>
+    );
+}
 
-    render() {
-        const { data } = this.props;
-        return (
-            <DropdownMenuDiv>
-                <ul className="dropdown">
-                    {data.map(item => {
-                        const { title,className } = item;
-                        return (
-                            <li key={title} onClick={this.handleMenuClick} data-id={title}>
-                                <span>
-                                    {title}
-                                </span>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </DropdownMenuDiv>
-        );
+const mapStateToProps = (state) => {
+    return {
+        currency: state.currency
     }
 }
 
-export default DropdownMenu
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateSelectedCurrency: (currency) => dispatch(updateSelectedCurrency(currency))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownMenu); 

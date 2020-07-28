@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { menuData } from './Dropdown/menuData'
 import DropdownMenu from './Dropdown/DropdownMenu'
+import { connect } from 'react-redux';
 
 const Logo = styled.h1`
 
@@ -44,21 +45,27 @@ outline: none;
 
 `;
 
-
-function AppHeader(props) {
+const  AppHeader = (props) => {
 	return (
 		<AppHeaderContainer>
 			<nav style={{ display: 'flex', justifyContent: 'space-between', paddingRight: 260, paddingLeft: 160 }} className={props.className}>
-			<Logo>VFCrypto</Logo>
-			<ul>
-				<li tabIndex="0" className="nav-item"><Title>{menuData[0].title}</Title><Caret />
-					<DropdownMenu data={menuData} />
-				</li>
-			</ul>
+				<Logo>VFCrypto</Logo>
+				<ul>
+					<li tabIndex="0" className="nav-item"><Title>{props.currency}</Title><Caret />
+						<DropdownMenu data={menuData} />
+					</li>
+				</ul>
 			</nav>
 		</AppHeaderContainer>
 	);
-	}
-	
-	export default AppHeader
+}
+
+const mapStateToProps = (state) => {
+    return {
+        currency: state.currency
+    }
+}
+
+export default connect(mapStateToProps)(AppHeader); 
+
 
